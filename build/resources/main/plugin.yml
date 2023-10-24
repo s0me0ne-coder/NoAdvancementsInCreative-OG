@@ -1,0 +1,7 @@
+name: BuffRates-OG
+author: Sekalol15
+description: Buffs various mob spawn and drop rates.
+website: https://github.com/Sekalol15/BuffRates-OG
+version: 1.3
+api-version: 1.18
+main: plugin.BuffRatesOG
