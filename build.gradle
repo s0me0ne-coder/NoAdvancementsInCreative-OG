@@ -7,7 +7,7 @@ plugins {
 
 }
 
-group = 'net.trueog.buffrates-og' // Declare bundle identifier.
+group = 'net.trueog.kotlintemplate-og' // Declare bundle identifier.
 version = '1.3'
 
 def apiVersion = "1.18.2" // Declare minecraft server target version.
