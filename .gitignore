@@ -25,3 +25,7 @@ replay_pid*
 
 # macOS system files
 .DS_Store
+
+# gradle build output files
+build/
+.gradle/
