@@ -13,19 +13,16 @@ import org.bukkit.inventory.ItemStack
 import kotlin.random.Random
 
 class Listeners : Listener {
-    @EventHandler
-    fun templateEvent(event: CreatureSpawnEvent) {
+   
+	// Run the code within when the following event triggers...
+	//@EventHandler
+    //fun templateEvent(event: CreatureSpawnEvent) {
 
-        val TemplateInt = Config.getTemplateInt()
-        val TemplateBool = Config.getTemplateBool()
-        val TemplateDouble = Config.getTemplateDouble()
+		// Fetch variables from the config file.
+        //val TemplateInt = Config.getTemplateInt()
+        //val TemplateBool = Config.getTemplateBool()
+        //val TemplateDouble = Config.getTemplateDouble()
 
-    }
-
+    //}
 
 }
-
-
-
-
-

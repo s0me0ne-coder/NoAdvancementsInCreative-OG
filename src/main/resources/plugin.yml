@@ -2,6 +2,6 @@ name: KotlinTemplate-OG
 author: Sekalol15
 description: Kotlin plugin template for the OG Suite
 website: https://github.com/Sekalol15/KotlinTemplate-OG
-version: 1.0
-api-version: 1.19
+version: '${version}'
+api-version: '${apiVersion}' 
 main: plugin.KotlinTemplateOG
