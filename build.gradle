@@ -44,8 +44,8 @@ repositories {
 
 dependencies {
 
-    compileOnly "org.purpurmc.purpur:purpur-api:1.19.4-R0.1-SNAPSHOT"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8" // Declare purpur API version to be packaged.
+    compileOnly "org.purpurmc.purpur:purpur-api:1.19.4-R0.1-SNAPSHOT" // Declare purpur API version to be packaged.
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8" // Declare kotlin library to be packaged.
 
 }
 
