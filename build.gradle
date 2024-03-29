@@ -3,7 +3,7 @@ plugins {
     id 'java' // Tell gradle this is a java project.
     id 'com.github.johnrengelman.shadow' version '8.1.1' // Import utility to package libraries into .jar file.
     id 'eclipse'
-    id 'org.jetbrains.kotlin.jvm' version '1.9.0' // Import eclipse plugin for IDE integration.
+    id 'org.jetbrains.kotlin.jvm' version '1.9.23' // Import eclipse plugin for IDE integration.
 
 }
 

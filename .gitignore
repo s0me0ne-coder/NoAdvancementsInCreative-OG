@@ -29,3 +29,9 @@ replay_pid*
 # gradle build output files
 build/
 .gradle/
+
+# eclipse project files
+.settings/
+.project
+.classpath
+bin/
