@@ -2,8 +2,8 @@ plugins {
 
     id 'java' // Tell gradle this is a java project.
     id 'com.github.johnrengelman.shadow' version '8.1.1' // Import utility to package libraries into .jar file.
-    id 'eclipse'
-    id 'org.jetbrains.kotlin.jvm' version '1.9.0' // Import eclipse plugin for IDE integration.
+    id 'eclipse'  // Import eclipse plugin for IDE integration. 
+    id 'org.jetbrains.kotlin.jvm' version '1.9.23' // Import kotlin jvm plugin for kotlin/java integration.
 
 }
 
@@ -44,8 +44,8 @@ repositories {
 
 dependencies {
 
-    compileOnly "org.purpurmc.purpur:purpur-api:1.19.4-R0.1-SNAPSHOT"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8" // Declare purpur API version to be packaged.
+    compileOnly "org.purpurmc.purpur:purpur-api:1.19.4-R0.1-SNAPSHOT" // Declare purpur API version to be packaged.
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8" // Declare kotlin library to be packaged.
 
 }
 
