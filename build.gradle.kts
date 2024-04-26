@@ -7,7 +7,6 @@ import java.util.zip.ZipOutputStream
 plugins {
     id("org.jetbrains.kotlin.jvm") version "1.9.23"
     id("com.github.johnrengelman.shadow") version "8.1.1"
-    id("maven-publish")
     id("eclipse")
 }
 
@@ -56,6 +55,11 @@ tasks.shadowJar {
 tasks.shadowJar.configure {
 
     archiveClassifier.set("")
+
+	// Import license into .jar
+    from("LICENSE") {
+        into("/")
+    }
 
 }
 
