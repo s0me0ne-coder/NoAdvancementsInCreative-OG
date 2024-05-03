@@ -34,13 +34,16 @@ val apiVersion = "1.19" // Declare minecraft server target version.
 
 tasks.register<Task>("fetchAndBuildDependencies") {
     doLast {
-        if (! project.hasProperty("dependenciesFetched")) {
-            project.extensions.extraProperties.set("dependenciesFetched", true)
-            file("depends").forEachLine { _->
-
+        if (! project.hasProperty("dependenciesFetched")) { 
+            project.extensions.extraProperties.set("dependenciesFetched", true) 
+            file("depends").forEachLine { line -> 
+                val components = line.split(" ") 
+                val repoUrl = components[0] 
+                val ref = components[1]
+                val localPath = components[2]
                 exec {
-                    workingDir = projectDir
-                    commandLine("./gradlew", "build")
+                    workingDir = projectDir 
+                    commandLine("./gradlew", "build") 
                 }
             }
         }
@@ -89,6 +92,7 @@ tasks.shadowJar {
 
 tasks.jar {
     dependsOn(tasks.shadowJar)
+    dependsOn(tasks.fetchAndBuildDependencies)
     archiveClassifier.set("part")
 }
 
