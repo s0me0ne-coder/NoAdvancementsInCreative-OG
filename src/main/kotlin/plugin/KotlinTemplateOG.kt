@@ -15,7 +15,6 @@ class KotlinTemplateOG : JavaPlugin() {
     override fun onEnable() {
 
         plugin = this
-        server.pluginManager.registerEvents(Listeners(), this)
         Config.load()
 
     }

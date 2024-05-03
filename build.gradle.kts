@@ -1,25 +1,50 @@
-import java.io.BufferedOutputStream
-import java.io.FileOutputStream
-import java.nio.file.Files
-import java.util.zip.ZipEntry
-import java.util.zip.ZipOutputStream
-
 plugins {
-    id("org.jetbrains.kotlin.jvm") version "1.9.23"
-    id("com.github.johnrengelman.shadow") version "8.1.1"
-    id("eclipse")
+    java // Tell gradle this is a java project.
+    id("com.github.johnrengelman.shadow") version "8.1.1" // Import utility to package libraries into .jar file.
+    eclipse // Import eclipse plugin for IDE integration.
+    kotlin("jvm") version "1.9.23" // Import kotlin jvm plugin for kotlin/java integration.
+}
+
+java {
+    // Declare java version.
+    sourceCompatibility = JavaVersion.VERSION_17
 }
 
 group = "net.trueog.kotlintemplate-og" // Declare bundle identifier.
-version = "2.1"
+version = "1.0" // Declare plugin version (will be in .jar).
 
-val apiVersion = "1.19"
+val apiVersion = "1.19" // Declare minecraft server target version.
+
+// Task for updating git submodules
+tasks.register<Exec>("updateSubmodules") {
+    description = "Updates and initializes git submodules"
+    commandLine("git", "submodule", "update", "--force", "--recursive", "--init", "--remote")
+}
+
+tasks.register<Task>("fetchAndBuildDependencies") {
+    // Make this task depend on the submodule update
+    dependsOn("updateSubmodules")
+    doLast {
+        if (! project.hasProperty("dependenciesFetched")) {
+            project.extensions.extraProperties.set("dependenciesFetched", true)
+            file("depends").forEachLine { _->
+
+                exec {
+                    workingDir = projectDir
+                    commandLine("./gradlew", "build")
+                }
+            }
+        }
+    }
+}
 
 tasks.named<ProcessResources>("processResources") {
     val props = mapOf(
         "version" to version,
-        "apiVersion" to apiVersion,
+        "apiVersion" to apiVersion
     )
+
+    inputs.properties(props) // Indicates to rerun if version changes.
 
     filesMatching("plugin.yml") {
         expand(props)
@@ -27,20 +52,20 @@ tasks.named<ProcessResources>("processResources") {
 }
 
 repositories {
-
     mavenCentral()
 
     maven {
         url = uri("https://repo.purpurmc.org/snapshots")
     }
-
 }
 
 dependencies {
+    compileOnly("org.purpurmc.purpur:purpur-api:1.19.4-R0.1-SNAPSHOT") // Declare purpur API version to be packaged.
+    compileOnly("io.github.miniplaceholders:miniplaceholders-api:2.2.3") // Import MiniPlaceholders API.
 
-    compileOnly("org.purpurmc.purpur:purpur-api:1.19.4-R0.1-SNAPSHOT")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
-
+    implementation(project(":libs:Utilities-OG"))
+    implementation(project(":libs:GxUI"))
+    implementation(project(":libs:DiamondBank-OG"))
 }
 
 tasks.withType<AbstractArchiveTask>().configureEach {
@@ -49,32 +74,30 @@ tasks.withType<AbstractArchiveTask>().configureEach {
 }
 
 tasks.shadowJar {
+    exclude("io.github.miniplaceholders.*") // Exclude the MiniPlaceholders package from being shadowed.
     minimize()
 }
 
-tasks.shadowJar.configure {
+tasks.jar {
+    dependsOn(tasks.shadowJar)
+    archiveClassifier.set("part")
+}
 
-    archiveClassifier.set("")
-
-	// Import license into .jar
+tasks.shadowJar {
+    archiveClassifier.set("") // Use empty string instead of null
     from("LICENSE") {
         into("/")
     }
-
 }
 
 tasks.jar {
     dependsOn("shadowJar")
 }
 
-tasks.jar.configure {
-    archiveClassifier.set("part")
-}
-
 tasks.withType<JavaCompile>().configureEach {
     options.compilerArgs.add("-parameters")
-    options.encoding = "UTF-8" 
-    options.forkOptions.executable = File(options.forkOptions.javaHome, "bin/javac").path
+    options.encoding = "UTF-8"
+    options.isFork = true
 }
 
 kotlin {

@@ -1,0 +1,9 @@
+[submodule "libs/DiamondBank-OG"]
+	path = libs/DiamondBank-OG
+	url = https://github.com/NotAlexNoyle/DiamondBank-OG
+[submodule "libs/Utilities-OG"]
+	path = libs/Utilities-OG
+	url = https://github.com/cnie109/Utilities-OG
+[submodule "libs/GxUI"]
+	path = libs/GxUI
+	url = https://github.com/Gxorge/GxUI
