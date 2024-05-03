@@ -1,3 +1,20 @@
+import org.gradle.api.tasks.Exec
+import org.gradle.api.Task
+
+tasks.register<Exec>("updateSubmodules") {
+    description = "Initializes and updates git submodules"
+    commandLine = listOf("git", "submodule", "update", "--force", "--recursive", "--init", "--remote")
+    workingDir = rootDir
+    environment("GIT_TERMINAL_PROMPT", "0")
+}
+
+// Modify the 'withType' block 
+tasks.withType<Exec>().configureEach { execTask ->
+    if (execTask.name == "updateSubmodules") {
+        execTask.environment("GIT_TERMINAL_PROMPT", "0") // Configure if needed
+    }
+}
+
 plugins {
     java // Tell gradle this is a java project.
     id("com.github.johnrengelman.shadow") version "8.1.1" // Import utility to package libraries into .jar file.
@@ -15,15 +32,7 @@ version = "1.0" // Declare plugin version (will be in .jar).
 
 val apiVersion = "1.19" // Declare minecraft server target version.
 
-// Task for updating git submodules
-tasks.register<Exec>("updateSubmodules") {
-    description = "Updates and initializes git submodules"
-    commandLine("git", "submodule", "update", "--force", "--recursive", "--init", "--remote")
-}
-
 tasks.register<Task>("fetchAndBuildDependencies") {
-    // Make this task depend on the submodule update
-    dependsOn("updateSubmodules")
     doLast {
         if (! project.hasProperty("dependenciesFetched")) {
             project.extensions.extraProperties.set("dependenciesFetched", true)
