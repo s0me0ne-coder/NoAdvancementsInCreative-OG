@@ -1,5 +1,11 @@
 rootProject.name = "KotlinTemplate-OG"
 
-include(":libs:Utilities-OG")
-include(":libs:DiamondBank-OG")
-include(":libs:GxUI")
+// Execute bootstrap.sh
+exec {
+    workingDir(rootDir)
+    commandLine("sh", "bootstrap.sh")
+}
+
+include("libs:Utilities-OG")
+include("libs:GxUI")
+include("libs:DiamondBank-OG")

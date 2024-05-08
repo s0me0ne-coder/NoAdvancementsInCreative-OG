@@ -1,20 +1,3 @@
-import org.gradle.api.tasks.Exec
-import org.gradle.api.Task
-
-tasks.register<Exec>("updateSubmodules") {
-    description = "Initializes and updates git submodules"
-    commandLine = listOf("git", "submodule", "update", "--force", "--recursive", "--init", "--remote")
-    workingDir = rootDir
-    environment("GIT_TERMINAL_PROMPT", "0")
-}
-
-// Modify the 'withType' block 
-tasks.withType<Exec>().configureEach { execTask ->
-    if (execTask.name == "updateSubmodules") {
-        execTask.environment("GIT_TERMINAL_PROMPT", "0") // Configure if needed
-    }
-}
-
 plugins {
     java // Tell gradle this is a java project.
     id("com.github.johnrengelman.shadow") version "8.1.1" // Import utility to package libraries into .jar file.
@@ -29,26 +12,7 @@ java {
 
 group = "net.trueog.kotlintemplate-og" // Declare bundle identifier.
 version = "1.0" // Declare plugin version (will be in .jar).
-
 val apiVersion = "1.19" // Declare minecraft server target version.
-
-tasks.register<Task>("fetchAndBuildDependencies") {
-    doLast {
-        if (! project.hasProperty("dependenciesFetched")) { 
-            project.extensions.extraProperties.set("dependenciesFetched", true) 
-            file("depends").forEachLine { line -> 
-                val components = line.split(" ") 
-                val repoUrl = components[0] 
-                val ref = components[1]
-                val localPath = components[2]
-                exec {
-                    workingDir = projectDir 
-                    commandLine("./gradlew", "build") 
-                }
-            }
-        }
-    }
-}
 
 tasks.named<ProcessResources>("processResources") {
     val props = mapOf(
@@ -92,7 +56,6 @@ tasks.shadowJar {
 
 tasks.jar {
     dependsOn(tasks.shadowJar)
-    dependsOn(tasks.fetchAndBuildDependencies)
     archiveClassifier.set("part")
 }
 
