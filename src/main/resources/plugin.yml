@@ -1,7 +1,8 @@
-name: KotlinTemplate-OG
-author: Sekalol15
-description: Kotlin plugin template for the OG Suite
-website: https://github.com/Sekalol15/KotlinTemplate-OG
+name: Template-OG
+author: NotAlexNoyle
+description: A blank plugin for TrueOG from which to base other plugins off of.
+website: https://github.com/true-og/Template-OG/
 version: '${version}'
-api-version: '${apiVersion}' 
-main: plugin.KotlinTemplateOG
+api-version: '${apiVersion}'
+main: plugin.TemplateOG
+depend: [DiamondBank-OG]

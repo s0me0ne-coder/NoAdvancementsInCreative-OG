@@ -1,4 +1,4 @@
-rootProject.name = "KotlinTemplate-OG"
+rootProject.name = "Template-OG"
 
 // Execute bootstrap.sh
 exec {
