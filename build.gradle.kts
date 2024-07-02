@@ -1,6 +1,6 @@
 plugins {
     java // Tell gradle this is a java project.
-    id("com.github.johnrengelman.shadow") version "8.1.1" // Import utility to package libraries into .jar file.
+	id("io.github.goooler.shadow") version "8.1.8"
     eclipse // Import eclipse plugin for IDE integration.
     kotlin("jvm") version "1.9.23" // Import kotlin jvm plugin for kotlin/java integration.
 }
