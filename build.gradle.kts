@@ -37,11 +37,6 @@ repositories {
 
 dependencies {
     compileOnly("org.purpurmc.purpur:purpur-api:1.19.4-R0.1-SNAPSHOT") // Declare purpur API version to be packaged.
-    compileOnly("io.github.miniplaceholders:miniplaceholders-api:2.2.3") // Import MiniPlaceholders API.
-
-    implementation(project(":libs:Utilities-OG"))
-    implementation(project(":libs:GxUI"))
-    implementation(project(":libs:DiamondBank-OG"))
 }
 
 tasks.withType<AbstractArchiveTask>().configureEach {

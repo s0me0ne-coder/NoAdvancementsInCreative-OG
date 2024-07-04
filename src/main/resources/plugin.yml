@@ -1,8 +1,7 @@
-name: Template-OG
+name: NoAdvancementsInCreative-OG
 author: NotAlexNoyle
 description: A blank plugin for TrueOG from which to base other plugins off of.
-website: https://github.com/true-og/Template-OG/
+website: https://github.com/true-og/NoAdvancementsInCreative-OG/
 version: '${version}'
 api-version: '${apiVersion}'
-main: plugin.TemplateOG
-depend: [DiamondBank-OG]
+main: plugin.NoAdvancementsInCreative
